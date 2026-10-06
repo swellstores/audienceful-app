@@ -1,0 +1,12 @@
+{
+  "description": "Sync Swell customers, orders and abandoned carts to Audienceful",
+  "id": "audienceful",
+  "name": "Audienceful",
+  "type": "integration",
+  "version": "1.0.0",
+  "permissions": [
+    "read_accounts",
+    "read_settings"
+  ],
+  "support_email": "support@swell.is"
+}

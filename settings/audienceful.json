@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json.swell.store/setting.json",
+  "label": "Audienceful",
+  "description": "Connect your Audienceful workspace.",
+  "fields": [
+    {
+      "id": "api_key",
+      "label": "API key",
+      "type": "short_text",
+      "placeholder": "Paste your Audienceful API key",
+      "description": "In Audienceful: Settings → API → Generate key. Use a separate Audienceful workspace for your Swell test environment."
+    },
+    {
+      "id": "sync_customers",
+      "label": "Sync customers",
+      "type": "boolean",
+      "default": true,
+      "description": "New and updated customers become Audienceful contacts, tagged swell-customer, with their name, address, order count and total spent. Customers who opted in to marketing are also tagged marketing-consent. Customers who withdraw consent are unsubscribed."
+    },
+    {
+      "id": "include_without_consent",
+      "label": "Include customers who didn't opt in",
+      "type": "boolean",
+      "default": false,
+      "description": "Off: only customers who agreed to receive marketing emails are synced. On: every customer with an email is synced and subscribed in Audienceful. Check that you're allowed to email them (in the EU, marketing emails usually need consent), and use the marketing-consent tag to send newsletters only to customers who opted in."
+    }
+  ]
+}
