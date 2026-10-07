@@ -6,6 +6,7 @@
   "version": "1.0.0",
   "permissions": [
     "read_accounts",
+    "read_carts",
     "read_orders",
     "read_settings"
   ],

@@ -5,9 +5,12 @@ export interface AudiencefulSettings {
   includeWithoutConsent: boolean;
   sendOrders: boolean;
   orderEvent: string;
+  sendCarts: boolean;
+  cartEvent: string;
 }
 
 export const DEFAULT_ORDER_EVENT = 'order_placed';
+export const DEFAULT_CART_EVENT = 'cart_abandoned';
 
 interface RawSettings {
   audienceful?: {
@@ -16,6 +19,8 @@ interface RawSettings {
     include_without_consent?: boolean;
     send_orders?: boolean;
     order_event?: string;
+    send_carts?: boolean;
+    cart_event?: string;
   };
 }
 
@@ -29,6 +34,8 @@ export async function readSettings(swell: SwellAPI): Promise<AudiencefulSettings
     includeWithoutConsent: settings.include_without_consent === true,
     sendOrders: settings.send_orders !== false,
     orderEvent: settings.order_event?.trim() || DEFAULT_ORDER_EVENT,
+    sendCarts: settings.send_carts !== false,
+    cartEvent: settings.cart_event?.trim() || DEFAULT_CART_EVENT,
   };
 }
 

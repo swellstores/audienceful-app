@@ -11,13 +11,15 @@ const DEFAULTS: AudiencefulSettings = {
   includeWithoutConsent: false,
   sendOrders: true,
   orderEvent: 'order_placed',
+  sendCarts: true,
+  cartEvent: 'cart_abandoned',
 };
 
 describe('readSettings', () => {
   it('reads and trims the API key and event name', async () => {
     await expect(
-      readSettings(swell({ audienceful: { api_key: '  abc  ', sync_customers: true, order_event: ' bought ' } })),
-    ).resolves.toEqual({ ...DEFAULTS, apiKey: 'abc', orderEvent: 'bought' });
+      readSettings(swell({ audienceful: { api_key: '  abc  ', sync_customers: true, order_event: ' bought ', cart_event: ' left ' } })),
+    ).resolves.toEqual({ ...DEFAULTS, apiKey: 'abc', orderEvent: 'bought', cartEvent: 'left' });
   });
 
   it('uses the defaults for unsaved settings', async () => {
@@ -31,9 +33,10 @@ describe('readSettings', () => {
   });
 
   it('respects toggles turned off', async () => {
-    await expect(readSettings(swell({ audienceful: { sync_customers: false, send_orders: false } }))).resolves.toMatchObject({
+    await expect(readSettings(swell({ audienceful: { sync_customers: false, send_orders: false, send_carts: false } }))).resolves.toMatchObject({
       syncCustomers: false,
       sendOrders: false,
+      sendCarts: false,
     });
   });
 });

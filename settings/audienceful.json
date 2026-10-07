@@ -38,6 +38,21 @@
       "default": "order_placed",
       "placeholder": "order_placed",
       "description": "The custom event to fire, created in Audienceful under Settings → Events. Properties: order_number, order_total, order_subtotal, discount_total, shipping_total, tax_total, currency, item_count, items, first_item_name."
+    },
+    {
+      "id": "send_carts",
+      "label": "Send abandoned carts",
+      "type": "boolean",
+      "default": true,
+      "description": "When Swell marks a cart abandoned (3 hours without activity) and the shopper's email is known, the cart event below starts your cart recovery automations. Turn off Swell's own abandoned cart emails under Settings → Notifications, so shoppers don't get two reminders."
+    },
+    {
+      "id": "cart_event",
+      "label": "Abandoned cart event",
+      "type": "short_text",
+      "default": "cart_abandoned",
+      "placeholder": "cart_abandoned",
+      "description": "The custom event to fire, created in Audienceful under Settings → Events. Properties: checkout_url (link back to the cart), cart_total, cart_subtotal, discount_total, currency, item_count, items, first_item_name."
     }
   ]
 }

@@ -36,19 +36,23 @@ export function orderProperties(order: SwellOrder): Record<string, string | numb
     shipping_total: money(order.shipment_total, currency),
     tax_total: money(order.tax_total, currency),
     currency,
-    item_count: items.reduce((sum, item) => sum + (item.quantity ?? 1), 0),
+    item_count: itemCount(items),
     items: items.map(itemLine).join('\n'),
     first_item_name: items[0] ? itemName(items[0]) : '',
   };
 }
 
-function itemName(item: SwellOrderItem): string {
+export function itemName(item: SwellOrderItem): string {
   const name = item.product_name ?? 'Item';
   return item.variant_name ? `${name} (${item.variant_name})` : name;
 }
 
-function itemLine(item: SwellOrderItem): string {
+export function itemLine(item: SwellOrderItem): string {
   return `${item.quantity ?? 1} × ${itemName(item)}`;
+}
+
+export function itemCount(items: SwellOrderItem[]): number {
+  return items.reduce((sum, item) => sum + (item.quantity ?? 1), 0);
 }
 
 /** An amount as text with two decimals and the currency code, e.g. "42.50 EUR". */
