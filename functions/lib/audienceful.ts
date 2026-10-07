@@ -106,6 +106,26 @@ export class AudiencefulClient {
   createField(field: FieldInput) {
     return this.request<Field>('POST', '/fields', field);
   }
+
+  /**
+   * Fires a custom event, which starts the automations listening for it. The event must exist in the
+   * workspace (Settings → Events): returns false when it doesn't, instead of failing.
+   */
+  async triggerEvent(event: TriggerEvent): Promise<boolean> {
+    try {
+      await this.request('POST', '/automations/event', { add_person: false, ...event });
+      return true;
+    } catch (error) {
+      if (error instanceof AudiencefulError && error.status === 404) return false;
+      throw error;
+    }
+  }
+}
+
+export interface TriggerEvent {
+  email: string;
+  event: string;
+  event_properties?: Record<string, string | number | boolean>;
 }
 
 async function toError(res: Response): Promise<AudiencefulError> {

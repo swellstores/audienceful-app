@@ -1,6 +1,6 @@
 import { AudiencefulClient } from './lib/audienceful';
 import { ACCOUNT_FIELDS, contactFromAccount, ensureFields, type SwellAccount } from './lib/contacts';
-import { readSettings } from './lib/settings';
+import { maySync, readSettings } from './lib/settings';
 
 export const config: SwellConfig = {
   description: 'Send customers who opted in to marketing to Audienceful as contacts',
@@ -38,7 +38,7 @@ export default async function (req: SwellRequest) {
   if (isUpdate && 'email_optin' in changed && !account.email_optin) {
     // Consent withdrawn in Swell: stop marketing emails in Audienceful too.
     await client.unsubscribe(account.email.trim().toLowerCase());
-  } else if (account.email_optin || settings.includeWithoutConsent) {
+  } else if (maySync(settings, account.email_optin)) {
     await ensureFields(client, settings.apiKey);
     await client.upsertContact(contactFromAccount(account));
   }

@@ -22,7 +22,22 @@
       "label": "Include customers who didn't opt in",
       "type": "boolean",
       "default": false,
-      "description": "Off: only customers who agreed to receive marketing emails are synced. On: every customer with an email is synced and subscribed in Audienceful. Check that you're allowed to email them (in the EU, marketing emails usually need consent), and use the marketing-consent tag to send newsletters only to customers who opted in."
+      "description": "Off: only customers who agreed to receive marketing emails are synced. On: every customer with an email is synced and subscribed in Audienceful. Check that you're allowed to email them (in the EU, marketing emails usually need consent), and use the marketing-consent tag to send newsletters only to customers who opted in. Applies to orders and abandoned carts too."
+    },
+    {
+      "id": "send_orders",
+      "label": "Send orders",
+      "type": "boolean",
+      "default": true,
+      "description": "When an order is placed, the customer is tagged swell-buyer, their totals are updated, and the order event below starts your post-purchase automations."
+    },
+    {
+      "id": "order_event",
+      "label": "Order event",
+      "type": "short_text",
+      "default": "order_placed",
+      "placeholder": "order_placed",
+      "description": "The custom event to fire, created in Audienceful under Settings → Events. Properties: order_number, order_total, order_subtotal, discount_total, shipping_total, tax_total, currency, item_count, items, first_item_name."
     }
   ]
 }

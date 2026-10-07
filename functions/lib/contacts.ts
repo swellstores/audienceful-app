@@ -37,7 +37,7 @@ export interface SwellAccount {
 }
 
 /** The Audienceful contact for a Swell account. Empty values are left out so they never wipe data. */
-export function contactFromAccount(account: SwellAccount): Contact {
+export function contactFromAccount(account: SwellAccount, extraTags: string[] = []): Contact {
   const address = hasAddress(account.shipping) ? account.shipping : account.billing;
   const extra: Contact['extra_data'] = {
     first_name: account.first_name,
@@ -52,7 +52,7 @@ export function contactFromAccount(account: SwellAccount): Contact {
   };
   const contact: Contact = {
     email: (account.email ?? '').trim().toLowerCase(),
-    tags: account.email_optin ? [CUSTOMER_TAG, CONSENT_TAG] : [CUSTOMER_TAG],
+    tags: [CUSTOMER_TAG, ...(account.email_optin ? [CONSENT_TAG] : []), ...extraTags],
     extra_data: Object.fromEntries(Object.entries(extra).filter(([, value]) => value !== undefined && value !== null && value !== '')),
   };
   if (account.phone?.trim()) contact.phone_number = account.phone.trim();
