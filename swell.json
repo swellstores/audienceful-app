@@ -1,5 +1,6 @@
 {
   "description": "Sync Swell customers, orders and abandoned carts to Audienceful",
+  "repository_url": "https://github.com/swellstores/audienceful-app",
   "id": "audienceful",
   "name": "Audienceful",
   "type": "integration",
